@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 #############################
 # Author = Royce Davis
-# Update and modernisation = Alexander Alexandrov
-# Last edited August 7, 2023
+# Last edited February 2, 2011
 #############################
 require 'rubygems'
 require 'nmap/parser'
@@ -13,11 +12,17 @@ unless ARGV.length > 0
   exit!
 end
 
+def current_datetime
+  Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+end
+
+nmap_file = ARGV[0]
+output_file = "Report_#{File.basename(nmap_file, '.xml')}_#{current_datetime}.txt"
+
 ports = Array.new
 portstring = String.new
 result_string = String.new
-parser = Nmap::Parser.parsefile("#{ARGV[0]}")
-output_file = "output.txt"
+parser = Nmap::Parser.parsefile(nmap_file)
 
 parser.hosts("up") do |host|
   [:tcp, :udp].each do |type|
@@ -32,6 +37,8 @@ parser.hosts("up") do |host|
   end
 end
 
+puts result_string
+
 File.open(output_file, "w") do |file|
   file.write(result_string)
 end
@@ -39,3 +46,4 @@ end
 ports.each { |port| portstring << port.to_s + "," }
 puts "Results saved to #{output_file}"
 puts "sudo nmap -sS -p #{portstring.chop} -sV -A -vv -oA enumeration -iL ../ranges.txt"
+
