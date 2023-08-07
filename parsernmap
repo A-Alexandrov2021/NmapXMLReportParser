@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+#############################
+# Author = Royce Davis
+# Update and modernisation = Alexander Alexandrov
+# Last edited August 7, 2023
+#############################
+require 'rubygems'
+require 'nmap/parser'
+
+unless ARGV.length > 0
+  puts "Generates a .txt file containing the open ports summary and the .nmap information\r\n"
+  puts "USAGE:\t./parsenmap <nmap xml file>\r\n\n"
+  exit!
+end
+
+ports = Array.new
+portstring = String.new
+result_string = String.new
+parser = Nmap::Parser.parsefile("#{ARGV[0]}")
+output_file = "output.txt"
+
+parser.hosts("up") do |host|
+  [:tcp, :udp].each do |type|
+    host.getports(type, "open") do |port|
+      string = port.state.to_s
+      unless string.include? "filtered"
+        srv = port.service
+        ports << port.num unless ports.include? port.num
+        result_string << "#{host.addr}\t#{port.num}\t#{srv.name}\t#{srv.product}\t#{srv.version}\t#{srv.extrainfo}\n"
+      end
+    end
+  end
+end
+
+File.open(output_file, "w") do |file|
+  file.write(result_string)
+end
+
+ports.each { |port| portstring << port.to_s + "," }
+puts "Results saved to #{output_file}"
+puts "sudo nmap -sS -p #{portstring.chop} -sV -A -vv -oA enumeration -iL ../ranges.txt"
