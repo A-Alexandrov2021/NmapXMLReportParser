@@ -6,6 +6,7 @@
 #############################
 require 'rubygems'
 require 'nmap/parser'
+require 'fileutils'
 
 unless ARGV.length > 0
   puts "Generates a .txt file containing the open ports summary and the .nmap information\r\n"
