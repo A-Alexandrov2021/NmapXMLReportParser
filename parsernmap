@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 #############################
-# Author = Royce Davis
-# Update / Unification / Modernisation = Alexander Alexandrov
+# Author = Royce Davis, Alexander Alexandrov
 # Last edited August 7, 2023
 #############################
 require 'rubygems'
