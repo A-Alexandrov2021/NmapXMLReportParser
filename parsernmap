@@ -14,7 +14,7 @@ unless ARGV.length > 0
 end
 
 def current_datetime
-  Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+  Time.now.strftime("Date_%Y-%m-%d_%H-%M-%S")
 end
 
 nmap_file = ARGV[0]
