@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #############################
 # Author = Royce Davis, Alexander Alexandrov
-# Last edited August 8, 2023
+# Last edited August 9, 2023
 #############################
 require 'rubygems'
 require 'nmap/parser'
