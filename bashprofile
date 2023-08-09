@@ -1,6 +1,1 @@
-if [ -d "$HOME/parsenmap" ]; then
-PATH="$PATH:$HOME/parsenmap"
-fi
-export PATH="$PATH:/home/pentest/parsenmap"
-alias parsenmap="/home/pentest/parsenmap/parsenmap.rb"
-export PATH="$PATH:~/pentest_scripts"
+
